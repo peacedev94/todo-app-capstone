@@ -174,13 +174,13 @@ Using the following commands; update and install dependencies
     sudo apt update
 ![config-1](https://github.com/user-attachments/assets/d75651c6-d6f3-412e-acab-d0839aef2ea0)
 
-    sudo apt intall docker.io -y
+    sudo apt install docker.io -y
 ![config-2](https://github.com/user-attachments/assets/ad3128e4-39d9-4e1a-a59b-347d6b280515)
 
     sudo apt install docker-compose -y
 ![config-3](https://github.com/user-attachments/assets/917e2537-e0ef-4dcc-af63-631db23742b5)
 
-    sudo apt isbatll -y npm; nodejs
+    sudo apt install -y npm; nodejs
 ![config-5](https://github.com/user-attachments/assets/f6341f1b-52bf-4ec1-9595-7072fb14ac03)
 
 ### update docker permissions
