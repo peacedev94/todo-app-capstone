@@ -1,4 +1,4 @@
-# Todo App – Full Stack Dockerized Application
+# Todo App – Dockerized 2-Tier Web Apps with GitHub CI/CD
 
 This repository contains a full-stack Todo application, featuring a React frontend and a Node.js/Express backend, both containerized with Docker and orchestrated using Docker Compose. The project also includes a robust CI/CD pipeline powered by GitHub Actions for automated testing, building, and deployment.
 
@@ -20,8 +20,55 @@ This repository contains a full-stack Todo application, featuring a React fronte
 
 ## Project Structure
 
-xxxxxxx
 
+    ├── LICENSE
+    ├── README.md
+    ├── backend
+    │   ├── Dockerfile
+    │   ├── package-lock.json
+    │   ├── package.json
+    │   ├── server.js
+    │   └── src
+    │       ├── app.js
+    │       ├── config
+    │       │   └── database.js
+    │       ├── controllers
+    │       │   ├── authController.js
+    │       │   └── todoController.js
+    │       ├── middleware
+    │       │   └── auth.js
+    │       ├── models
+    │       │   ├── Todo.js
+    │       │   └── User.js
+    │       └── routes
+    │           ├── auth.js
+    │           └── todos.js
+    ├── docker-compose.yml
+    ├── frontend
+    │   ├── Dockerfile
+    │   ├── package-lock.json
+    │   ├── package.json
+    │   ├── public
+    │   │   └── index.html
+    │   └── src
+    │       ├── App.css
+    │       ├── App.js
+    │       ├── components
+    │       │   ├── Auth
+    │       │   │   ├── Login.js
+    │       │   │   └── Register.js
+    │       │   ├── Layout
+    │       │   │   └── Header.js
+    │       │   └── Todo
+    │       │       ├── TodoItem.js
+    │       │       └── TodoList.js
+    │       ├── context
+    │       │   └── AuthContext.js
+    │       ├── index.css
+    │       ├── index.js
+    │       └── services
+    │           └── api.js
+    └── package-lock.json
 
 ---
 
