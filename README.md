@@ -136,21 +136,16 @@ Open the Amazon VPC console at https://console.aws.amazon.com/vpc/
 
 On the VPC Dashboard, choose Launch VPC Wizard.
 
-![s1](/images/vpc1.png)
+![vpc-1](https://github.com/user-attachments/assets/90bba467-4449-4645-8755-c07ea223fabd)
+
 
 On the VPC configuration Dashboard choosing VPC and more automatically launches Private Subnets, Public Subnets, Routing Tables and Subnet Associations, Internet GateWay, Elastic IP, IP CIDR block, Availability Zones and Network Access Translator.
 
 On the Auto-generate input field, write the name of your VPC
 
-![s1](/images/vpc2.png)
+![vpc-2](https://github.com/user-attachments/assets/705d94eb-a901-4359-9101-af7c282906fb)
 
 Choose the number of Avalaibility Zones (AZ's) in which to create your IGW GateWay.
-
-![s1](/images/vpc4.png)
-
-The image below shows the auto-generated configurations i.e. Subnets, Routes Tables and Network Connections.
-
-![s1](/images/vpc3.png)
 
 ### Server Configurtaion
 
