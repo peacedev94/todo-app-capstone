@@ -180,8 +180,5 @@ This repository uses **GitHub Actions** to automate the build, test, Docker imag
 
 ## References
 
-- See [`backend.txt`](backend.txt) for backend implementation details.
-- See [`frontend.txt`](frontend.txt) for frontend implementation details.
 
----
 
