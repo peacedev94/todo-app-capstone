@@ -18,6 +18,8 @@ This repository contains a full-stack Todo application, featuring a React fronte
 
 ---
 
+## High Level Architectural Diagram 
+
 ## Project Structure
 
 
