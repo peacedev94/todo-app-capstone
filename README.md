@@ -104,14 +104,14 @@ The `docker-compose.yml` file orchestrates both the backend and frontend service
       JWT_SECRET=your-super-secret-jwt-key
       NODE_ENV=development
       PORT=5000
-      FRONTEND_URL=http://localhost:3000
+      FRONTEND_URL=http://localhost
 
 ---
 
 ## Frontend Service
 
 - **Tech Stack:** React
-- **Port:** 3000
+- **Port:** 80
 - **Environment:** Configured via `frontend/.env`
 - **Proxy:** Forwards API requests to backend at `http://localhost:5000`
 
@@ -127,6 +127,127 @@ The `docker-compose.yml` file orchestrates both the backend and frontend service
 ---
 
 ## Running the Application
+
+### Network Configuration
+
+## **1. Creating VPC**
+
+Open the Amazon VPC console at https://console.aws.amazon.com/vpc/
+
+On the VPC Dashboard, choose Launch VPC Wizard.
+
+![s1](/images/vpc1.png)
+
+On the VPC configuration Dashboard choosing VPC and more automatically launches Private Subnets, Public Subnets, Routing Tables and Subnet Associations, Internet GateWay, Elastic IP, IP CIDR block, Availability Zones and Network Access Translator.
+
+On the Auto-generate input field, write the name of your VPC
+
+![s1](/images/vpc2.png)
+
+Choose the number of Avalaibility Zones (AZ's) in which to create your IGW GateWay.
+
+![s1](/images/vpc4.png)
+
+The image below shows the auto-generated configurations i.e. Subnets, Routes Tables and Network Connections.
+
+![s1](/images/vpc3.png)
+
+### Server Configurtaion
+
+## **1. Create a public EC2 Instance**
+
+Navigate to the ec2 console and click on Launch Instance
+
+![s1](/images/e1.png)
+
+Write the name of your instances, select the number of instances and use Ubuntu as choice of Linux Distro.
+
+![s1](/images/e2.png)
+
+Select your key-pair if you dont have a key-pair create one
+
+Next, select the VPC that you previously created, and choose any of the public subnet, Enable the Auto-Assigned Public IP, and finally Create a Security Group keeping the default settings then click on Launch Instance.
+
+![s1](/images/e3.png)
+
+### Database Configuration
+
+### Create a publicly accessible PostgreSQL database in RDS
+
+We need to create a publicly accessible RDS instance with minimal cost to hold our application data
+
+#### Security Group for PostgreSQL traffic
+
+- On AWS Management Console navigate to `EC2` > `Security Groups` > `Create security group`
+
+- Add an inbound rule for `PostgreSQL` from `Anywhere` (basically Protocol: `TCP`, Port: `5432`, Source: `0.0.0.0/0`)
+
+  ![](../assets/part-7/rds-security-group.png)
+
+- Leave everything else as it's and click create
+
+#### Create an RDS Instance
+
+**Please follow this section very carefully to avoid DB problems in the upcoming stages**
+
+- On AWS Management Console navigate to `RDS` > `Databases` > `Create database`
+
+- In the first card choose `Standard Create`, and in **Engine** options choose `PostgreSQL` with the **default** version
+
+  ![](../assets/part-7/create-rds-1.png)
+
+- In **Templates** choose `Free tier`, and you'll see that you're restricted to `Single DB instance` in the next card
+
+  ![](../assets/part-7/create-rds-2.png)
+
+- In Settings choose a name for your instance identifier (`udapeople-db`)
+
+- Under **credentials** choose a username and a password (username: `postgres`, password: Check `Auto generate a password`)
+
+- In **Instance configuration** you can select any available option (`db.t4g.micro`)
+
+  ![](../assets/part-7/create-rds-3.png)
+
+- In Storage make sure to **uncheck** `Enable storage autoscaling`
+
+  ![](../assets/part-7/create-rds-4.png)
+
+- **Important**: In **Connectivity** make sure you choose the correct values
+
+  - **VPC**: `Default VPC`
+  - **Subnet group**: `default`
+  - **Public access**: `Yes`
+  - **VPC Security Group**: `Choose existing`
+    - **Remove** `default`
+    - **Add** the security group created in the previous step (`Public-PostgreSQL-RDS`)
+  - **Availability Zone**: `No preference`
+  - **Additional configuration**:
+    - Database port: `5432`
+
+  ![](../assets/part-7/create-rds-5.png)
+
+- In **Database authentication** choose `Password authentication`
+
+- **Important**: Open the Additional configuration card
+
+  - In Database options set **Initial database name** to a value (`glee`)
+
+    The same value here will be the **TYPEORM_DATABASE** environment variable
+
+    ![](../assets/part-7/create-rds-6.png)
+
+  - Optional: You can disable **Encryption**, **Backup**, **Monitoring**, and other checked features
+    ![](../assets/part-7/create-rds-7.png)
+
+- Finally, create a database
+
+If you checked Auto generate password you'll have a prompt with a blue ribbon in the next page
+
+![](../assets/part-7/create-rds-creds-1.png)
+
+Click on `View credentials settings` and save the username and password in a safe location
+
+![](../assets/part-7/create-rds-creds-2.png)
 
 ### 1. Prerequisites
 
@@ -145,7 +266,7 @@ From the project root:
 
 
 - The backend will be available at `http://localhost:5000`
-- The frontend will be available at `http://localhost:3000`
+- The frontend will be available at `http://localhost`
 
 ### 4. Stopping the Application
 
