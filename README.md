@@ -78,7 +78,6 @@ The `docker-compose.yml` file orchestrates both the backend and frontend service
 
 [docker-compose.yml example](docker-compose.yml)
 
-
 ---
 
 ## Backend Service
@@ -92,26 +91,16 @@ The `docker-compose.yml` file orchestrates both the backend and frontend service
 
 ### Sample backend/.env
 
-DB_HOST=your-db-host
-
-DB_PORT=5432
-
-DB_NAME=your-db-name
-
-DB_USER=your-db-user
-
-DB_PASSWORD=your-db-password
-
-DB_SSL=true
-
-JWT_SECRET=your-super-secret-jwt-key
-
-NODE_ENV=development
-
-PORT=5000
-
-FRONTEND_URL=http://localhost:3000
-
+      DB_HOST=your-db-host
+      DB_PORT=5432
+      DB_NAME=your-db-name
+      DB_USER=your-db-user
+      DB_PASSWORD=your-db-password
+      DB_SSL=true
+      JWT_SECRET=your-super-secret-jwt-key
+      NODE_ENV=development
+      PORT=5000
+      FRONTEND_URL=http://localhost:3000
 
 ---
 
@@ -129,8 +118,7 @@ FRONTEND_URL=http://localhost:3000
 
 ### Sample frontend/.env
 
-REACT_APP_API_URL=http://localhost:5000
-
+`REACT_APP_API_URL=http://localhost:5000`
 
 ---
 
@@ -158,7 +146,6 @@ From the project root:
 ### 4. Stopping the Application
 
 `docker-compose down`
-
 
 ---
 
@@ -202,7 +189,6 @@ This repository uses **GitHub Actions** to automate the build, test, Docker imag
 
 [Example Workflow File](./.github/workflows/docker-image.yml)
 
-
 ### Required GitHub Secrets
 
 - `DOCKER_USERNAME`: Your Docker Hub username
@@ -227,5 +213,8 @@ This repository uses **GitHub Actions** to automate the build, test, Docker imag
 
 ## References
 
+[https://aws.amazon.com/rds/postgresql/](https://aws.amazon.com/rds/postgresql/)
 
+[https://aws.amazon.com/vpc/](https://aws.amazon.com/vpc/)
 
+[https://aws.amazon.com/ec2/features/](https://aws.amazon.com/ec2/features/)
