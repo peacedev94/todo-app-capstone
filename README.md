@@ -194,23 +194,25 @@ We need to create a publicly accessible RDS instance with minimal cost to hold o
 
 - In the first card choose `Standard Create`, and in **Engine** options choose `PostgreSQL` with the **default** version
 
-  ![](../assets/part-7/create-rds-1.png)
+  ![db-2](https://github.com/user-attachments/assets/45b039aa-a768-4122-aeed-3ecbcd61c579)
 
 - In **Templates** choose `Free tier`, and you'll see that you're restricted to `Single DB instance` in the next card
 
-  ![](../assets/part-7/create-rds-2.png)
+  ![db-3](https://github.com/user-attachments/assets/b7687dc3-1249-454d-8ce4-d5f519f51fb1)
 
-- In Settings choose a name for your instance identifier (`udapeople-db`)
+
+- In Settings choose a name for your instance identifier (`todo-app`)
 
 - Under **credentials** choose a username and a password (username: `postgres`, password: Check `Auto generate a password`)
 
 - In **Instance configuration** you can select any available option (`db.t4g.micro`)
 
-  ![](../assets/part-7/create-rds-3.png)
+![db-4](https://github.com/user-attachments/assets/c640e1c4-3c1f-4db9-8fad-6ea49d429336)
 
 - In Storage make sure to **uncheck** `Enable storage autoscaling`
 
-  ![](../assets/part-7/create-rds-4.png)
+![db-5](https://github.com/user-attachments/assets/7672ce3d-83e4-4af7-b30f-4f047ff14f1c)
+
 
 - **Important**: In **Connectivity** make sure you choose the correct values
 
@@ -224,17 +226,17 @@ We need to create a publicly accessible RDS instance with minimal cost to hold o
   - **Additional configuration**:
     - Database port: `5432`
 
-  ![](../assets/part-7/create-rds-5.png)
+![db-6](https://github.com/user-attachments/assets/c6d42f34-53a3-4cc1-931c-f1cc2e4f09f3)
+![db-7](https://github.com/user-attachments/assets/4e0ce795-9dbb-4f02-aaa4-144ff9ec1d3f)
+![db-8](https://github.com/user-attachments/assets/354dd97e-77cd-425f-9757-84959aff8cf0)
 
 - In **Database authentication** choose `Password authentication`
 
 - **Important**: Open the Additional configuration card
 
-  - In Database options set **Initial database name** to a value (`glee`)
+  - In Database options set **Initial database name** to a value (`todo_db`)
 
-    The same value here will be the **TYPEORM_DATABASE** environment variable
-
-    ![](../assets/part-7/create-rds-6.png)
+   ![db-9](https://github.com/user-attachments/assets/97961d0a-d400-4f3d-b09e-5d9afd4f3244)
 
   - Optional: You can disable **Encryption**, **Backup**, **Monitoring**, and other checked features
     ![](../assets/part-7/create-rds-7.png)
@@ -243,11 +245,9 @@ We need to create a publicly accessible RDS instance with minimal cost to hold o
 
 If you checked Auto generate password you'll have a prompt with a blue ribbon in the next page
 
-![](../assets/part-7/create-rds-creds-1.png)
-
 Click on `View credentials settings` and save the username and password in a safe location
 
-![](../assets/part-7/create-rds-creds-2.png)
+![db-10](https://github.com/user-attachments/assets/1eee4261-709b-42c2-a1d2-86dc50c79392)
 
 ### 1. Prerequisites
 
