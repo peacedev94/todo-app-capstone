@@ -6,7 +6,7 @@ services:
       context: ./backend
       dockerfile: Dockerfile
     ports:
-      - "4000:5000"
+      - "5000:5000"
     container_name: todo-backend
     networks:
       - todo-network
