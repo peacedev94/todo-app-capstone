@@ -1,282 +1,187 @@
-Todo Application - Comprehensive Guide
-📝 Table of Contents
-Introduction
+# Todo App – Full Stack Dockerized Application
 
-Features
+This repository contains a full-stack Todo application, featuring a React frontend and a Node.js/Express backend, both containerized with Docker and orchestrated using Docker Compose. The project also includes a robust CI/CD pipeline powered by GitHub Actions for automated testing, building, and deployment.
 
-Technology Stack
+---
 
-Setup Instructions
+## Table of Contents
 
-Running the Application
+- [Project Structure](#project-structure)
+- [Docker Compose Setup](#docker-compose-setup)
+- [Backend Service](#backend-service)
+- [Frontend Service](#frontend-service)
+- [Running the Application](#running-the-application)
+- [API Endpoints](#api-endpoints)
+- [CI/CD with GitHub Actions](#cicd-with-github-actions)
+- [Troubleshooting](#troubleshooting)
+- [References](#references)
 
-Understanding the Components
+---
 
-Security Measures
+## Project Structure
 
-Deployment
+xxxxxxx
 
-Troubleshooting
 
-Contributing
+---
 
-🌟 Introduction
-Welcome to the Todo Application! This is a complete web application that helps you manage your daily tasks with ease. Think of it like a digital to-do list that you can access from anywhere. The application has two main parts:
+## Docker Compose Setup
 
-Frontend: The part you see and interact with (built with React)
+The `docker-compose.yml` file orchestrates both the backend and frontend services, ensuring they run in isolated containers and communicate via a custom bridge network.
 
-Backend: The "brain" that stores your tasks and handles all the behind-the-scenes work (built with Node.js and PostgreSQL)
+[docker-compose.yml example](docker-compose.yml)
 
-The application is designed to be secure, fast, and easy to use, whether you're a tech expert or just getting started with digital tools.
 
-✨ Features
-User Accounts: Create an account and log in securely
+---
 
-Task Management:
+## Backend Service
 
-Add new tasks with titles and descriptions
+- **Tech Stack:** Node.js, Express, PostgreSQL
+- **Port:** 5000
+- **Environment:** Configured via `backend/.env`
+- **Features:** User authentication (JWT), CRUD for todos, security best practices
 
-Mark tasks as complete
+[Backend Dockerfile eaxample](./backend/Dockerfile)
 
-Edit existing tasks
+### Sample backend/.env
 
-Delete tasks you no longer need
+DB_HOST=your-db-host
 
-Organized Display: View all your tasks in a clean, easy-to-read list
+DB_PORT=5432
 
-Responsive Design: Works well on both computers and mobile devices
+DB_NAME=your-db-name
 
-Secure: Your data is protected with modern security measures
+DB_USER=your-db-user
 
-🛠 Technology Stack
-Here's what makes this application work:
+DB_PASSWORD=your-db-password
 
-Frontend (What you see)
-React: A popular JavaScript library for building user interfaces
+DB_SSL=true
 
-React Router: Handles navigation between different pages
+JWT_SECRET=your-super-secret-jwt-key
 
-Axios: Helps the frontend communicate with the backend
+NODE_ENV=development
 
-CSS: Makes everything look nice and organized
+PORT=5000
 
-Backend (The brain)
-Node.js: The JavaScript runtime that powers the backend
+FRONTEND_URL=http://localhost:3000
 
-Express: A framework that helps organize the backend code
 
-PostgreSQL: A powerful database that stores all your tasks
+---
 
-JWT: Securely handles user authentication
+## Frontend Service
 
-Infrastructure
-Docker: Packages the application for easy deployment
+- **Tech Stack:** React
+- **Port:** 3000
+- **Environment:** Configured via `frontend/.env`
+- **Proxy:** Forwards API requests to backend at `http://localhost:5000`
 
-Docker Compose: Manages multiple containers (frontend, backend, database)
+### Frontend Dockerfile
 
-GitHub Actions: Automates testing and deployment
+[Frontend Dockerfile eaxample](./frontend/Dockerfile)
 
-🚀 Setup Instructions
-Prerequisites
-Before you begin, make sure you have these installed:
 
-Docker
+### Sample frontend/.env
 
-Docker Compose
+REACT_APP_API_URL=http://localhost:5000
 
-Node.js (version 18 or higher)
 
-Git
+---
 
-Step-by-Step Setup
-Clone the repository:
+## Running the Application
 
-bash
-git clone https://github.com/your-repository/todo-app.git
-cd todo-app
-Set up environment variables:
+### 1. Prerequisites
 
-Create a .env file in both backend and frontend folders
+- [Docker](https://www.docker.com/get-started) and [Docker Compose](https://docs.docker.com/compose/) installed
+- A running PostgreSQL instance (cloud or local)
 
-For the backend, use the example from backend.txt (but change the sensitive values!)
+### 2. Setup Environment Files
 
-For the frontend, you might need to set REACT_APP_API_URL
+- Copy and edit `.env` files for both backend and frontend as shown above.
 
-Build and run with Docker:
+### 3. Build and Start Containers
 
-bash
-docker-compose up --build
-Access the application:
+From the project root:
 
-Frontend: Open http://localhost:3000 in your browser
+`docker-compose up --build`
 
-Backend: Runs on http://localhost:5000 (you won't access this directly)
 
-▶ Running the Application
-Once everything is set up:
+- The backend will be available at `http://localhost:5000`
+- The frontend will be available at `http://localhost:3000`
 
-Development mode:
+### 4. Stopping the Application
 
-bash
-# For backend
-cd backend
-npm run dev
+`docker-compose down`
 
-# For frontend (in another terminal)
-cd frontend
-npm start
-Production mode:
 
-bash
-docker-compose up -d
-The application will automatically:
+---
 
-Create database tables if they don't exist
+## API Endpoints
 
-Set up all necessary connections
+### Authentication
 
-Handle user authentication securely
+- `POST /api/auth/register` – Register a new user
+- `POST /api/auth/login` – Login and receive JWT
+- `GET /api/auth/profile` – Get current user profile (requires JWT)
 
-🧩 Understanding the Components
-Frontend Structure
-App.js: The main component that ties everything together
+### Todos
 
-AuthContext.js: Manages user login state
+- `GET /api/todos` – List all todos (auth required)
+- `POST /api/todos` – Create a new todo (auth required)
+- `PUT /api/todos/:id` – Update a todo (auth required)
+- `DELETE /api/todos/:id` – Delete a todo (auth required)
 
-Components:
+---
 
-Auth/: Handles login and registration
+## CI/CD with GitHub Actions
 
-Todo/: Manages the to-do list interface
+### Overview
 
-Layout/: Contains shared elements like the header
+This repository uses **GitHub Actions** to automate the build, test, Docker image publishing, and deployment process. The workflow is triggered on every push to the `main` branch.
 
-Backend Structure
-server.js: The entry point that starts the server
+### Workflow Steps
 
-app.js: Configures the application (security, routes, etc.)
+1. **Build Backend**
+   - Installs dependencies
+   - Builds and pushes the backend Docker image to Docker Hub
 
-Routes:
+2. **Build Frontend**
+   - Installs dependencies
+   - Builds and pushes the frontend Docker image to Docker Hub
 
-auth.js: Handles user registration and login
+3. **Deploy**
+   - Connects to your EC2 server via SSH
+   - Copies the latest `docker-compose.yml`
+   - Deploys the updated containers
 
-todos.js: Manages all to-do related operations
+[Example Workflow File](./.github/workflows/docker-image.yml)
 
-Models:
 
-User.js: Handles user data
+### Required GitHub Secrets
 
-Todo.js: Manages to-do items in the database
+- `DOCKER_USERNAME`: Your Docker Hub username
+- `DOCKER_PASSWORD`: Your Docker Hub password or access token
+- `BACKEND_CONTAINER_NAME`: Docker image name for backend
+- `FRONTEND_CONTAINER_NAME`: Docker image name for frontend
+- `PRIVATE_KEY`: SSH private key for your server
+- `SSH_USER`: SSH username for your server
+- `SSH_HOST`: Host/IP of your server
+- `SSH_PORT`: SSH port (default: 22)
 
-Controllers: Contain the business logic for each route
+---
 
-🔒 Security Measures
-Your security is important! Here's how we protect your data:
+## Troubleshooting
 
-Password Protection:
+- **Database connection errors:** Ensure your PostgreSQL instance is accessible and credentials are correct.
+- **Port conflicts:** Ensure ports 3000 and 5000 are free on your host.
+- **Environment variables:** Double-check `.env` files for typos or missing values.
+- **CI/CD failures:** Review GitHub Actions logs for details; ensure all required secrets are set.
 
-Passwords are never stored directly - they're converted to secure hashes
+---
 
-Uses bcryptjs for strong password encryption
+## References
 
-Authentication:
+- See [`backend.txt`](backend.txt) for backend implementation details.
+- See [`frontend.txt`](frontend.txt) for frontend implementation details.
 
-Uses JSON Web Tokens (JWT) for secure login
+---
 
-Tokens expire after 7 days for safety
-
-API Protection:
-
-Rate limiting to prevent abuse (100 requests every 15 minutes)
-
-Helmet middleware for secure HTTP headers
-
-CORS restricted to your frontend only
-
-Database Security:
-
-SSL connections for production
-
-Sensitive data stored in environment variables
-
-☁ Deployment
-The application includes a GitHub Actions pipeline that automatically:
-
-Tests the code
-
-Builds Docker images
-
-Pushes them to Docker Hub
-
-Deploys to your server when you push to the main branch
-
-Manual Deployment Steps
-Build the images:
-
-bash
-docker-compose build
-Run the containers:
-
-bash
-docker-compose up -d
-View running containers:
-
-bash
-docker ps
-View logs:
-
-bash
-docker logs todo-backend
-docker logs todo-frontend
-🚨 Troubleshooting
-Common Issues
-Connection errors:
-
-Check that PostgreSQL is running
-
-Verify your .env file has correct database credentials
-
-Ensure ports 3000 (frontend) and 5000 (backend) are available
-
-Docker issues:
-
-Make sure Docker is running (docker --version)
-
-Try rebuilding images (docker-compose up --build)
-
-Database problems:
-
-Check the backend logs for connection errors
-
-Verify the database tables were created (look for "Database tables created successfully" in logs)
-
-Getting Help
-If you encounter issues:
-
-Check the logs (as shown above)
-
-Search for your error message online
-
-Open an issue in the GitHub repository with details of your problem
-
-🤝 Contributing
-We welcome contributions! Here's how you can help:
-
-Report bugs: Open an issue with detailed steps to reproduce
-
-Suggest features: Share your ideas for improvement
-
-Code contributions:
-
-Fork the repository
-
-Create a branch for your feature (git checkout -b feature/amazing-feature)
-
-Commit your changes (git commit -m 'Add some amazing feature')
-
-Push to the branch (git push origin feature/amazing-feature)
-
-Open a Pull Request
-
-📜 License
-This project is licensed under the MIT License - see the LICENSE file for details.
