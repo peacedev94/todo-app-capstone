@@ -196,6 +196,22 @@ Using the following commands; update and install dependencies
     sudo systemctl status nginx.service
 ![ng-2](https://github.com/user-attachments/assets/bdb1c847-b63b-47c0-9220-835713560a1f)
 
+    sudo rm /etc/nginx/sites-enabled/default
+    sudo vi /etc/nginx/sites-available/3000.conf
+    
+        server {
+            listen 80;
+            server_name localhost;
+            location / {
+                proxy_pass http://localhost:3000;
+            }
+    }
+
+    sudo ln -s /etc/nginx/sites-available/3000.conf /etc/nginx/sites-enabled/
+    sudo nginx -t
+    sudo systemctl restart nginx
+    sudo systemctl status nginx
+
 ### Database Configuration
 
 
