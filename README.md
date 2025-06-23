@@ -125,16 +125,15 @@ The `docker-compose.yml` file orchestrates both the backend and frontend service
 
 ---
 
-### Network Configuration
+## Network Configuration
 
-## **1. Creating VPC**
+### Creating VPC
 
 Open the Amazon VPC console at https://console.aws.amazon.com/vpc/
 
 On the VPC Dashboard, choose Launch VPC Wizard.
 
 ![vpc-1](https://github.com/user-attachments/assets/90bba467-4449-4645-8755-c07ea223fabd)
-
 
 On the VPC configuration Dashboard choosing VPC and more automatically launches Private Subnets, Public Subnets, Routing Tables and Subnet Associations, Internet GateWay, Elastic IP, IP CIDR block, Availability Zones and Network Access Translator.
 
@@ -144,19 +143,17 @@ On the Auto-generate input field, write the name of your VPC
 
 Choose the number of Avalaibility Zones (AZ's) in which to create your IGW GateWay.
 
-### Server Configurtaion
+## Server Configurtaion
 
-## **1. Create a public EC2 Instance**
+### Create a public EC2 Instance
 
 Navigate to the ec2 console and click on Launch Instance
 
 ![ec2-1](https://github.com/user-attachments/assets/072c1501-2f05-456b-9e73-5193c312fd6d)
 
-
 Write the name of your instances, select the number of instances and use Ubuntu as choice of Linux Distro.
 
 ![ec2-2](https://github.com/user-attachments/assets/03dd5856-e11c-4e9b-a93a-45db12db6b38)
-
 
 Select your key-pair if you dont have a key-pair create one
 
@@ -167,17 +164,15 @@ Next, select the VPC that you previously created, and choose any of the public s
 
 ### Database Configuration
 
-### Create a publicly accessible PostgreSQL database in RDS
+### 1. Create a publicly accessible PostgreSQL database in RDS
 
 We need to create a publicly accessible RDS instance with minimal cost to hold our application data
 
-#### Security Group for PostgreSQL traffic
+#### 2. Security Group for PostgreSQL traffic
 
 - On AWS Management Console navigate to `EC2` > `Security Groups` > `Create security group`
 
 - Add an inbound rule for `PostgreSQL` from `Anywhere` (basically Protocol: `TCP`, Port: `5432`, Source: `0.0.0.0/0`)
-
-  ![](../assets/part-7/rds-security-group.png)
 
 - Leave everything else as it's and click create
 
@@ -208,13 +203,12 @@ We need to create a publicly accessible RDS instance with minimal cost to hold o
 
 ![db-5](https://github.com/user-attachments/assets/7672ce3d-83e4-4af7-b30f-4f047ff14f1c)
 
-
 - **Important**: In **Connectivity** make sure you choose the correct values
 
   - **VPC**: `Default VPC`
   - **Subnet group**: `default`
   - **Public access**: `Yes`
-  - **VPC Security Group**: `Choose existing`
+  - **VPC Security Group**: `Choose existing or create new one`
     - **Remove** `default`
     - **Add** the security group created in the previous step (`Public-PostgreSQL-RDS`)
   - **Availability Zone**: `No preference`
@@ -234,7 +228,6 @@ We need to create a publicly accessible RDS instance with minimal cost to hold o
    ![db-9](https://github.com/user-attachments/assets/97961d0a-d400-4f3d-b09e-5d9afd4f3244)
 
   - Optional: You can disable **Encryption**, **Backup**, **Monitoring**, and other checked features
-    ![](../assets/part-7/create-rds-7.png)
 
 - Finally, create a database
 
