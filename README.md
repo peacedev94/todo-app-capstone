@@ -24,7 +24,6 @@ This repository contains a full-stack Todo application, featuring a React fronte
 
 ## Project Structure
 
-
     ├── LICENSE
     ├── README.md
     ├── backend
@@ -126,8 +125,6 @@ The `docker-compose.yml` file orchestrates both the backend and frontend service
 
 ---
 
-## Running the Application
-
 ### Network Configuration
 
 ## **1. Creating VPC**
@@ -153,17 +150,20 @@ Choose the number of Avalaibility Zones (AZ's) in which to create your IGW GateW
 
 Navigate to the ec2 console and click on Launch Instance
 
-![s1](/images/e1.png)
+![ec2-1](https://github.com/user-attachments/assets/072c1501-2f05-456b-9e73-5193c312fd6d)
+
 
 Write the name of your instances, select the number of instances and use Ubuntu as choice of Linux Distro.
 
-![s1](/images/e2.png)
+![ec2-2](https://github.com/user-attachments/assets/03dd5856-e11c-4e9b-a93a-45db12db6b38)
+
 
 Select your key-pair if you dont have a key-pair create one
 
 Next, select the VPC that you previously created, and choose any of the public subnet, Enable the Auto-Assigned Public IP, and finally Create a Security Group keeping the default settings then click on Launch Instance.
 
-![s1](/images/e3.png)
+![ec2-4](https://github.com/user-attachments/assets/8f628434-a360-4f71-9be7-b5f1d93aeadd)
+
 
 ### Database Configuration
 
@@ -243,6 +243,8 @@ If you checked Auto generate password you'll have a prompt with a blue ribbon in
 Click on `View credentials settings` and save the username and password in a safe location
 
 ![db-10](https://github.com/user-attachments/assets/1eee4261-709b-42c2-a1d2-86dc50c79392)
+
+## Running the Application
 
 ### 1. Prerequisites
 
