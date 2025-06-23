@@ -183,8 +183,7 @@ Using the following commands; update and install dependencies
     sudo apt isbatll -y npm; nodejs
 ![config-5](https://github.com/user-attachments/assets/f6341f1b-52bf-4ec1-9595-7072fb14ac03)
 
-# update docker permissions
-
+### update docker permissions
     sudo usermod -aG docker $USER
     newgrp docker
     docker ps
