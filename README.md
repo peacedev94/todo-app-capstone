@@ -20,6 +20,8 @@ This repository contains a full-stack Todo application, featuring a React fronte
 
 ## High Level Architectural Diagram 
 
+![Blank diagram](https://github.com/user-attachments/assets/b515ab37-ec8b-465a-98e2-1c364f418b43)
+
 ## Project Structure
 
 
