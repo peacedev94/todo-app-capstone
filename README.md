@@ -143,7 +143,9 @@ On the Auto-generate input field, write the name of your VPC
 
 Choose the number of Avalaibility Zones (AZ's) in which to create your IGW GateWay.
 
+
 ## Server Configurtaion
+
 
 ### Create a public EC2 Instance
 
@@ -164,6 +166,7 @@ Next, select the VPC that you previously created, and choose any of the public s
 
 ### Database Configuration
 
+
 ### 1. Create a publicly accessible PostgreSQL database in RDS
 
 We need to create a publicly accessible RDS instance with minimal cost to hold our application data
@@ -176,7 +179,7 @@ We need to create a publicly accessible RDS instance with minimal cost to hold o
 
 - Leave everything else as it's and click create
 
-#### Create an RDS Instance
+#### 3. Create an RDS Instance
 
 **Please follow this section very carefully to avoid DB problems in the upcoming stages**
 
@@ -189,7 +192,6 @@ We need to create a publicly accessible RDS instance with minimal cost to hold o
 - In **Templates** choose `Free tier`, and you'll see that you're restricted to `Single DB instance` in the next card
 
   ![db-3](https://github.com/user-attachments/assets/b7687dc3-1249-454d-8ce4-d5f519f51fb1)
-
 
 - In Settings choose a name for your instance identifier (`todo-app`)
 
@@ -237,7 +239,9 @@ Click on `View credentials settings` and save the username and password in a saf
 
 ![db-10](https://github.com/user-attachments/assets/1eee4261-709b-42c2-a1d2-86dc50c79392)
 
+
 ## Running the Application
+
 
 ### 1. Prerequisites
 
@@ -256,7 +260,8 @@ From the project root:
 
 
 - The backend will be available at `http://localhost:5000`
-- The frontend will be available at `http://localhost`
+- The frontend will be available at `http://localhost:3000`
+
 
 ### 4. Stopping the Application
 
