@@ -21,8 +21,6 @@ services:
       - FRONTEND_URL=http://13.53.134.21:3000
 
   frontend:
-    build:
-  backend:
     image: maiempire/frontend-todo-app:latest
     ports:
       - "80:80"
