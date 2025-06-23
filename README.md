@@ -189,7 +189,13 @@ Using the following commands; update and install dependencies
     docker ps
 ![config-4](https://github.com/user-attachments/assets/8642fe68-aead-467d-88e7-dc42cef2ee28)
 
-    
+### Nginx Configuration
+    sudo apt install nginx -y
+![ng-1](https://github.com/user-attachments/assets/80374653-5ffb-44f8-bff4-6b201c077999)
+
+    sudo systemctl status nginx.service
+![ng-2](https://github.com/user-attachments/assets/bdb1c847-b63b-47c0-9220-835713560a1f)
+
 ### Database Configuration
 
 
