@@ -6,10 +6,14 @@ This repository contains a full-stack Todo application, featuring a React fronte
 
 ## Table of Contents
 
+- [High Level Architectural Diagram](#High-Level-Architectural-Diagram)
 - [Project Structure](#project-structure)
 - [Docker Compose Setup](#docker-compose-setup)
 - [Backend Service](#backend-service)
 - [Frontend Service](#frontend-service)
+- [Network Configuration](#Network-Configuration)
+- [Server Configurtaion](#Server-Configurtaion)
+- [Database Configuration](#Database-Configuration)
 - [Running the Application](#running-the-application)
 - [API Endpoints](#api-endpoints)
 - [CI/CD with GitHub Actions](#cicd-with-github-actions)
@@ -256,7 +260,7 @@ Click on `View credentials settings` and save the username and password in a saf
 
 From the project root:
 
-`docker-compose up --build`
+    docker-compose up --build
 
 
 - The backend will be available at `http://localhost:5000`
@@ -264,8 +268,8 @@ From the project root:
 
 
 ### 4. Stopping the Application
-
-`docker-compose down`
+    
+    docker-compose down
 
 ---
 
