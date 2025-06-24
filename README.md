@@ -2,7 +2,6 @@
 
 This repository contains a full-stack Todo application, featuring a React frontend and a Node.js/Express backend, both containerized with Docker and orchestrated using Docker Compose. The project also includes a robust CI/CD pipeline powered by GitHub Actions for automated testing, building, and deployment.
 
-
 ---
 
 ## Table of Contents
@@ -70,8 +69,13 @@ The Todo App provides a robust set of features for both users and developers, co
 ## Screenshots of Application
 
 ### Register Page Section
+![web-1](https://github.com/user-attachments/assets/7f9f7434-a2d0-408d-8d84-809d3918eb44)
+
 ### Login Page section
+![web-2](https://github.com/user-attachments/assets/80af5ac4-4fe1-4c25-abb5-96aa71376e86)
+
 ### Home Page section
+![web-3](https://github.com/user-attachments/assets/e3a75110-7b9a-4fc3-aa88-29131add7b69)
 
 ## Project Structure
 
