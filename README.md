@@ -1,6 +1,6 @@
 # Todo App - Dockerized 2-Tier Web Apps with GitHub CI/CD
 
-This repository contains a full-stack Todo application, featuring a React frontend and a Node.js/Express backend, both containerized with Docker and orchestrated using Docker Compose. The project also includes a robust CI/CD pipeline powered by GitHub Actions for automated testing, building, and deployment.
+This repository contains a full-stack Todo Microservice application, featuring a React frontend and a Node.js/Express backend, both containerized with Docker and orchestrated using Docker Compose. The project also includes a robust CI/CD pipeline powered by GitHub Actions for automated testing, building, and deployment.
 
 ---
 
