@@ -1,14 +1,16 @@
+# Docker Compose configuration for frontend and backend services
+
 version: "3.8"
 
 services:
   backend:
-    image: peacedev94/backend-todo-app:latest
+    image: peacedev94/backend-todo-app:latest  # Use backend image from Docker Hub
     ports:
-      - "5000:5000"
+      - "5000:5000"  # Map container port 5000 to host port 5000
     container_name: todo-backend
     networks:
       - todo-network
-    environment:
+    environment:  # Backend environment variables
       - DB_HOST=todo-app.c5yoqiwm40c4.eu-north-1.rds.amazonaws.com
       - DB_PORT=5432
       - DB_NAME=todo_db
@@ -21,25 +23,25 @@ services:
       - FRONTEND_URL=http://13.53.134.21
 
   frontend:
-    image: peacedev94/frontend-todo-app:latest
+    image: peacedev94/frontend-todo-app:latest  # Use frontend image from Docker Hub
     ports:
-      - "3000:3000"
+      - "3000:3000"  # Map container port 3000 to host port 3000
     container_name: todo-frontend
     networks:
       - todo-network
     environment:
-      - REACT_APP_API_URL=http://13.53.134.21:5000/api
-    healthcheck:
+      - REACT_APP_API_URL=http://13.53.134.21:5000/api  # Point frontend to backend API URL
+    healthcheck:  # Monitor frontend health
       test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:3000"]
       interval: 30s
       timeout: 10s
       retries: 3
       start_period: 40s
-    restart: unless-stopped
+    restart: unless-stopped  # Always restart unless stopped manually
     depends_on:
-      - backend
+      - backend  # Ensure backend starts first
       
 networks:
   todo-network:
     driver: bridge
-    name: todo-app-network
+    name: todo-app-network  # Custom network for internal container communication

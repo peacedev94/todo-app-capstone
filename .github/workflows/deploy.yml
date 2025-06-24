@@ -1,77 +1,89 @@
+# This is a GitHub Actions workflow for CI/CD pipeline to build and deploy Node.js frontend & backend apps using Docker
+
 name: Node.js CI
 
 on:
   push:
-    branches: [ "main" ]
-    paths-ignore:
+    branches: [ "main" ]  # Trigger workflow only when pushing to 'main' branch
+    paths-ignore:         # Ignore changes to README files to prevent triggering pipeline unnecessarily
       - 'README.md'
       - 'README.MD'
       - 'readme.md'
 
 jobs:
   build-backend:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-latest  # Use latest Ubuntu runner
     strategy:
       matrix:
-        node-version: [18.x]
+        node-version: [18.x]  # Use Node.js version 18.x
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v4  # Checkout repo code
+
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node-version }}
+
       - name: Install backend dependencies
         run: npm install
-        working-directory: ./backend
+        working-directory: ./backend  # Go to backend directory
+
       - name: Login to Docker Hub
         run: echo ${{ secrets.DOCKER_PASSWORD }} | docker login -u ${{ secrets.DOCKER_USERNAME }} --password-stdin
+
       - name: Build Docker Image (backend)
         run: docker build --platform linux/amd64 -t ${{ secrets.DOCKER_USERNAME }}/${{ secrets.BACKEND_CONTAINER_NAME }} ./backend
+
       - name: Publish Image to Docker Hub
         run: docker push ${{ secrets.DOCKER_USERNAME }}/${{ secrets.BACKEND_CONTAINER_NAME }}:latest
 
   build-frontend:
-    needs: build-backend
+    needs: build-backend  # Wait for backend build to complete first
     runs-on: ubuntu-latest
     strategy:
       matrix:
         node-version: [18.x]
     steps:
       - uses: actions/checkout@v4
+
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node-version }}
+
       - name: Install frontend dependencies
         run: npm install
         working-directory: ./frontend
+
       - name: Login to Docker Hub
         run: echo ${{ secrets.DOCKER_PASSWORD }} | docker login -u ${{ secrets.DOCKER_USERNAME }} --password-stdin
+
       - name: Build Docker Image (frontend)
         run: docker build --platform linux/amd64 -t ${{ secrets.DOCKER_USERNAME }}/${{ secrets.FRONTEND_CONTAINER_NAME }} ./frontend
+
       - name: Publish Image to Docker Hub
         run: docker push ${{ secrets.DOCKER_USERNAME }}/${{ secrets.FRONTEND_CONTAINER_NAME }}:latest
-  
+
   deploy:
-    needs: build-frontend
+    needs: build-frontend  # Wait for frontend build to complete
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repo
         uses: actions/checkout@v3
-  
+
       - name: Set up SSH Key for Accessing server
         uses: webfactory/ssh-agent@v0.5.3
         with:
           ssh-private-key: ${{ secrets.PRIVATE_KEY }}
-  
+
       - name: Copy docker-compose.yml to EC2
         run: |
           scp -o StrictHostKeyChecking=no -P ${{ secrets.SSH_PORT }} \
           docker-compose.yml ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:~/
-      
+
       - name: Deploy to server
         run: |
           ssh -o StrictHostKeyChecking=no -p ${{ secrets.SSH_PORT }} ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} << 'EOF'
-            docker-compose up -d --build
-            docker system prune -a -f
+            docker-compose up -d --build  # Run docker-compose to build and start containers
+            docker system prune -a -f     # Clean up unused docker images to free up disk space
           EOF
