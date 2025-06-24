@@ -15,7 +15,7 @@ services:
       - DB_PORT=5432
       - DB_NAME=todo_db
       - DB_USER=postgres
-      - DB_PASSWORD=TJudqiTw8LfKFeTUat40
+      - DB_PASSWORD=todo_password
       - DB_SSL=true
       - JWT_SECRET=jtstringforreactapp
       - NODE_ENV=development
