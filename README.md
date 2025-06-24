@@ -444,7 +444,7 @@ This repository uses **GitHub Actions** to automate the build, test, Docker imag
 ### PEACE AJALA
 
 [![WhatsApp](https://img.shields.io/badge/WhatsApp-25D366?style=for-the-badge&logo=whatsapp&logoColor=white)](https://wa.me/2348101309307)
-[![Twitter](https://img.shields.io/badge/Twitter-1DA1F2?style=for-the-badge&logo=Twitter&logoColor=white)](https://twitter.com/_blackcat94)
+[![Twitter](https://img.shields.io/badge/Twitter-1DA1F2?style=for-the-badge&logo=Twitter&logoColor=white)](https://twitter.com/_blackcat940)
 
 
 ## Acknowledgments
