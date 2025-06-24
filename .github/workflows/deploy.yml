@@ -38,7 +38,6 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node-version }}
-          # Removed cache: 'npm' since lock files are in subdirectories
       - name: Install frontend dependencies
         run: npm install
         working-directory: ./frontend
