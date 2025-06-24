@@ -1,3 +1,4 @@
 node_modules
 .env
 REACT_APP_API_URL=http://54.205.198.249:5000/api
+frontend/nginx.conf.txt
