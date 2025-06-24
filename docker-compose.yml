@@ -2,28 +2,33 @@ version: "3.8"
 
 services:
   backend:
-    build:
-      context: ./backend
-      dockerfile: Dockerfile
+    image: maiempire/backend-todo-app:latest
     ports:
       - "5000:5000"
     container_name: todo-backend
     networks:
       - todo-network
-    env_file:
-      - ./backend/.env
+    environment:
+      - DB_HOST=todo-app.c5yoqiwm40c4.eu-north-1.rds.amazonaws.com
+      - DB_PORT=5432
+      - DB_NAME=todo_db
+      - DB_USER=postgres
+      - DB_PASSWORD=TJudqiTw8LfKFeTUat40
+      - DB_SSL=true
+      - JWT_SECRET=jtstringforreactapp
+      - NODE_ENV=development
+      - PORT=5000
+      - FRONTEND_URL=http://13.53.134.21:3000
 
   frontend:
-    build:
-      context: ./frontend
-      dockerfile: Dockerfile
+    image: maiempire/frontend-todo-app:latest
     ports:
-      - "80:80"
+      - "3000:3000"
     container_name: todo-frontend
     networks:
       - todo-network
-    env_file:
-      - ./frontend/.env
+    environment:
+      - REACT_APP_API_URL=http://13.53.134.21:5000/api
     healthcheck:
       test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:3000"]
       interval: 30s
@@ -39,4 +44,3 @@ networks:
   todo-network:
     driver: bridge
     name: todo-app-network
-

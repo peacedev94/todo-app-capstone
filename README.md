@@ -6,10 +6,14 @@ This repository contains a full-stack Todo application, featuring a React fronte
 
 ## Table of Contents
 
+- [High Level Architectural Diagram](#High-Level-Architectural-Diagram)
 - [Project Structure](#project-structure)
 - [Docker Compose Setup](#docker-compose-setup)
 - [Backend Service](#backend-service)
 - [Frontend Service](#frontend-service)
+- [Network Configuration](#Network-Configuration)
+- [Server Configurtaion](#Server-Configurtaion)
+- [Database Configuration](#Database-Configuration)
 - [Running the Application](#running-the-application)
 - [API Endpoints](#api-endpoints)
 - [CI/CD with GitHub Actions](#cicd-with-github-actions)
@@ -23,7 +27,6 @@ This repository contains a full-stack Todo application, featuring a React fronte
 ![Blank diagram (1)](https://github.com/user-attachments/assets/0e338e3d-708a-472a-b986-76f64e1c2f3f)
 
 ## Project Structure
-
 
     ├── LICENSE
     ├── README.md
@@ -126,67 +129,105 @@ The `docker-compose.yml` file orchestrates both the backend and frontend service
 
 ---
 
-## Running the Application
+## Network Configuration
 
-### Network Configuration
-
-## **1. Creating VPC**
+### Creating VPC
 
 Open the Amazon VPC console at https://console.aws.amazon.com/vpc/
 
 On the VPC Dashboard, choose Launch VPC Wizard.
 
-![s1](/images/vpc1.png)
+![vpc-1](https://github.com/user-attachments/assets/90bba467-4449-4645-8755-c07ea223fabd)
 
 On the VPC configuration Dashboard choosing VPC and more automatically launches Private Subnets, Public Subnets, Routing Tables and Subnet Associations, Internet GateWay, Elastic IP, IP CIDR block, Availability Zones and Network Access Translator.
 
 On the Auto-generate input field, write the name of your VPC
 
-![s1](/images/vpc2.png)
+![vpc-2](https://github.com/user-attachments/assets/705d94eb-a901-4359-9101-af7c282906fb)
 
 Choose the number of Avalaibility Zones (AZ's) in which to create your IGW GateWay.
 
-![s1](/images/vpc4.png)
 
-The image below shows the auto-generated configurations i.e. Subnets, Routes Tables and Network Connections.
+## Server Configurtaion
 
-![s1](/images/vpc3.png)
 
-### Server Configurtaion
-
-## **1. Create a public EC2 Instance**
+### 1. Create a public EC2 Instance
 
 Navigate to the ec2 console and click on Launch Instance
 
-![s1](/images/e1.png)
+![ec2-1](https://github.com/user-attachments/assets/072c1501-2f05-456b-9e73-5193c312fd6d)
 
 Write the name of your instances, select the number of instances and use Ubuntu as choice of Linux Distro.
 
-![s1](/images/e2.png)
+![ec2-2](https://github.com/user-attachments/assets/03dd5856-e11c-4e9b-a93a-45db12db6b38)
 
 Select your key-pair if you dont have a key-pair create one
 
 Next, select the VPC that you previously created, and choose any of the public subnet, Enable the Auto-Assigned Public IP, and finally Create a Security Group keeping the default settings then click on Launch Instance.
 
-![s1](/images/e3.png)
+![ec2-4](https://github.com/user-attachments/assets/8f628434-a360-4f71-9be7-b5f1d93aeadd)
+
+### 2. Installation of dependencies
+
+Using the following commands; update and install dependencies
+
+    sudo apt update
+![config-1](https://github.com/user-attachments/assets/d75651c6-d6f3-412e-acab-d0839aef2ea0)
+
+    sudo apt install docker.io -y
+![config-2](https://github.com/user-attachments/assets/ad3128e4-39d9-4e1a-a59b-347d6b280515)
+
+    sudo apt install docker-compose -y
+![config-3](https://github.com/user-attachments/assets/917e2537-e0ef-4dcc-af63-631db23742b5)
+
+    sudo apt install -y npm; nodejs
+![config-5](https://github.com/user-attachments/assets/f6341f1b-52bf-4ec1-9595-7072fb14ac03)
+
+### update docker permissions
+    sudo usermod -aG docker $USER
+    newgrp docker
+    docker ps
+![config-4](https://github.com/user-attachments/assets/8642fe68-aead-467d-88e7-dc42cef2ee28)
+
+### Nginx Configuration
+    sudo apt install nginx -y
+![ng-1](https://github.com/user-attachments/assets/80374653-5ffb-44f8-bff4-6b201c077999)
+
+    sudo systemctl status nginx.service
+![ng-2](https://github.com/user-attachments/assets/bdb1c847-b63b-47c0-9220-835713560a1f)
+
+    sudo rm /etc/nginx/sites-enabled/default
+    sudo vi /etc/nginx/sites-available/3000.conf
+    
+        server {
+            listen 80;
+            server_name localhost;
+            location / {
+                proxy_pass http://localhost:3000;
+            }
+    }
+
+    sudo ln -s /etc/nginx/sites-available/3000.conf /etc/nginx/sites-enabled/
+    sudo nginx -t
+    sudo systemctl restart nginx
+    sudo systemctl status nginx
 
 ### Database Configuration
 
-### Create a publicly accessible PostgreSQL database in RDS
+
+### 1. Create a publicly accessible PostgreSQL database in RDS
 
 We need to create a publicly accessible RDS instance with minimal cost to hold our application data
 
-#### Security Group for PostgreSQL traffic
+#### 2. Security Group for PostgreSQL traffic
 
 - On AWS Management Console navigate to `EC2` > `Security Groups` > `Create security group`
 
 - Add an inbound rule for `PostgreSQL` from `Anywhere` (basically Protocol: `TCP`, Port: `5432`, Source: `0.0.0.0/0`)
 
-  ![](../assets/part-7/rds-security-group.png)
-
 - Leave everything else as it's and click create
 
-#### Create an RDS Instance
+#### 3. Create an RDS Instance
 
 **Please follow this section very carefully to avoid DB problems in the upcoming stages**
 
@@ -194,60 +235,61 @@ We need to create a publicly accessible RDS instance with minimal cost to hold o
 
 - In the first card choose `Standard Create`, and in **Engine** options choose `PostgreSQL` with the **default** version
 
-  ![](../assets/part-7/create-rds-1.png)
+  ![db-2](https://github.com/user-attachments/assets/45b039aa-a768-4122-aeed-3ecbcd61c579)
 
 - In **Templates** choose `Free tier`, and you'll see that you're restricted to `Single DB instance` in the next card
 
-  ![](../assets/part-7/create-rds-2.png)
+  ![db-3](https://github.com/user-attachments/assets/b7687dc3-1249-454d-8ce4-d5f519f51fb1)
 
-- In Settings choose a name for your instance identifier (`udapeople-db`)
+- In Settings choose a name for your instance identifier (`todo-app`)
 
 - Under **credentials** choose a username and a password (username: `postgres`, password: Check `Auto generate a password`)
 
 - In **Instance configuration** you can select any available option (`db.t4g.micro`)
 
-  ![](../assets/part-7/create-rds-3.png)
+![db-4](https://github.com/user-attachments/assets/c640e1c4-3c1f-4db9-8fad-6ea49d429336)
 
 - In Storage make sure to **uncheck** `Enable storage autoscaling`
 
-  ![](../assets/part-7/create-rds-4.png)
+![db-5](https://github.com/user-attachments/assets/7672ce3d-83e4-4af7-b30f-4f047ff14f1c)
 
 - **Important**: In **Connectivity** make sure you choose the correct values
 
   - **VPC**: `Default VPC`
   - **Subnet group**: `default`
   - **Public access**: `Yes`
-  - **VPC Security Group**: `Choose existing`
+  - **VPC Security Group**: `Choose existing or create new one`
     - **Remove** `default`
     - **Add** the security group created in the previous step (`Public-PostgreSQL-RDS`)
   - **Availability Zone**: `No preference`
   - **Additional configuration**:
     - Database port: `5432`
 
-  ![](../assets/part-7/create-rds-5.png)
+![db-6](https://github.com/user-attachments/assets/c6d42f34-53a3-4cc1-931c-f1cc2e4f09f3)
+![db-7](https://github.com/user-attachments/assets/4e0ce795-9dbb-4f02-aaa4-144ff9ec1d3f)
+![db-8](https://github.com/user-attachments/assets/354dd97e-77cd-425f-9757-84959aff8cf0)
 
 - In **Database authentication** choose `Password authentication`
 
 - **Important**: Open the Additional configuration card
 
-  - In Database options set **Initial database name** to a value (`glee`)
+  - In Database options set **Initial database name** to a value (`todo_db`)
 
-    The same value here will be the **TYPEORM_DATABASE** environment variable
-
-    ![](../assets/part-7/create-rds-6.png)
+   ![db-9](https://github.com/user-attachments/assets/97961d0a-d400-4f3d-b09e-5d9afd4f3244)
 
   - Optional: You can disable **Encryption**, **Backup**, **Monitoring**, and other checked features
-    ![](../assets/part-7/create-rds-7.png)
 
 - Finally, create a database
 
 If you checked Auto generate password you'll have a prompt with a blue ribbon in the next page
 
-![](../assets/part-7/create-rds-creds-1.png)
-
 Click on `View credentials settings` and save the username and password in a safe location
 
-![](../assets/part-7/create-rds-creds-2.png)
+![db-10](https://github.com/user-attachments/assets/1eee4261-709b-42c2-a1d2-86dc50c79392)
+
+
+## Running the Application
+
 
 ### 1. Prerequisites
 
@@ -262,15 +304,16 @@ Click on `View credentials settings` and save the username and password in a saf
 
 From the project root:
 
-`docker-compose up --build`
+    docker-compose up --build
 
 
 - The backend will be available at `http://localhost:5000`
-- The frontend will be available at `http://localhost`
+- The frontend will be available at `http://localhost:3000`
+
 
 ### 4. Stopping the Application
-
-`docker-compose down`
+    
+    docker-compose down
 
 ---
 
