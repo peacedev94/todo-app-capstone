@@ -2,11 +2,14 @@
 
 This repository contains a full-stack Todo application, featuring a React frontend and a Node.js/Express backend, both containerized with Docker and orchestrated using Docker Compose. The project also includes a robust CI/CD pipeline powered by GitHub Actions for automated testing, building, and deployment.
 
+
 ---
 
 ## Table of Contents
 
 - [High Level Architectural Diagram](#High-Level-Architectural-Diagram)
+- [Application Features](#Application-Features)
+- [Screenshots of Application](#Screenshots-of-Application)
 - [Project Structure](#project-structure)
 - [Docker Compose Setup](#docker-compose-setup)
 - [Backend Service](#backend-service)
@@ -25,6 +28,50 @@ This repository contains a full-stack Todo application, featuring a React fronte
 ## High Level Architectural Diagram 
 
 ![Blank diagram (1)](https://github.com/user-attachments/assets/0e338e3d-708a-472a-b986-76f64e1c2f3f)
+
+## Application Features
+
+The Todo App provides a robust set of features for both users and developers, combining secure authentication, user management, and a modern task management interface. Below are the main features of the application, as implemented in both the backend and frontend:
+
+### 1. User Authentication & Management
+
+**Register:** Users can create an account with name, email, and password (minimum 6 characters, securely hashed).
+
+**Login:** Users can log in with email and password. On success, a JWT token is issued for session management.
+
+**Profile:** Authenticated users can retrieve their profile information.
+
+**JWT Authentication:** All protected API routes require a valid JWT token.
+
+### 2. Todo Management (CRUD)
+
+**Create Todo:** Authenticated users can add new todos with a title and optional description.
+
+**View Todos:** Users can view a list of their own todos, sorted by creation date.
+
+**Update Todo:*** Users can edit their todos (title, description, completion status).
+
+**Delete Todo:** Users can delete their own todos.
+
+**User Scoping:** Each user's todos are private and cannot be accessed by others.
+
+### 3. Security
+
+**Password Hashing:** Passwords are hashed with bcrypt before storage.
+
+**Helmet:** HTTP security headers are set using Helmet middleware.
+
+**CORS:** Only requests from the configured frontend URL are allowed.
+
+**Rate Limiting:** Each IP is limited to 100 requests per 15 minutes.
+
+**Centralized Error Handling:** All errors are handled gracefully and returned as JSON.
+
+## Screenshots of Application
+
+### Register Page Section
+### Login Page section
+### Home Page section
 
 ## Project Structure
 
@@ -308,7 +355,7 @@ From the project root:
 
 
 - The backend will be available at `http://localhost:5000`
-- The frontend will be available at `http://localhost:3000`
+- The frontend will be available at `http://localhost`
 
 
 ### 4. Stopping the Application
