@@ -1,6 +1,6 @@
-# Todo App – Dockerized 2-Tier Web Apps with GitHub CI/CD
+# Todo App - Dockerized 2-Tier Web Apps with GitHub CI/CD
 
-This repository contains a full-stack Todo application, featuring a React frontend and a Node.js/Express backend, both containerized with Docker and orchestrated using Docker Compose. The project also includes a robust CI/CD pipeline powered by GitHub Actions for automated testing, building, and deployment.
+This repository contains a full-stack Todo Microservice application, featuring a React frontend and a Node.js/Express backend, both containerized with Docker and orchestrated using Docker Compose. The project also includes a robust CI/CD pipeline powered by GitHub Actions for automated testing, building, and deployment.
 
 ---
 
@@ -438,9 +438,19 @@ This repository uses **GitHub Actions** to automate the build, test, Docker imag
 
 [https://aws.amazon.com/ec2/features/](https://aws.amazon.com/ec2/features/)
 
-## 🔗 Contact
+## 🔗 Contact/Author
 
 
-### PEACE
+### PEACE AJALA
 
 [![WhatsApp](https://img.shields.io/badge/WhatsApp-25D366?style=for-the-badge&logo=whatsapp&logoColor=white)](https://wa.me/2348101309307)
+[![Twitter](https://img.shields.io/badge/Twitter-1DA1F2?style=for-the-badge&logo=Twitter&logoColor=white)](https://twitter.com/_blackcat940)
+
+
+## Acknowledgments
+
+### MICHAEL AGBIAOWEI
+
+[![linkedin](https://img.shields.io/badge/linkedin-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/maiempire/)
+[![WhatsApp](https://img.shields.io/badge/WhatsApp-25D366?style=for-the-badge&logo=whatsapp&logoColor=white)](https://wa.me/2348168262740)
+[![Twitter](https://img.shields.io/badge/Twitter-1DA1F2?style=for-the-badge&logo=Twitter&logoColor=white)](https://twitter.com/michaelagbiaow2)
