@@ -3,15 +3,15 @@
 name: Node.js CI
 
 on:
-  # push:
-  #   branches: [ "main" ]  # Trigger workflow only when pushing to 'main' branch
-  #   paths-ignore:         # Ignore changes to README files to prevent triggering pipeline unnecessarily
-  #     - 'README.md'
-  #     - 'README.MD'
-  #     - 'readme.md'
+  push:
+    branches: [ "main" ]  # Trigger workflow only when pushing to 'main' branch
+    paths-ignore:         # Ignore changes to README files to prevent triggering pipeline unnecessarily
+      - 'README.md'
+      - 'README.MD'
+      - 'readme.md'
 
   # Allow manual trigger from GitHub Actions UI
-  workflow_dispatch:
+  # workflow_dispatch:
 
 jobs:
   build-backend:

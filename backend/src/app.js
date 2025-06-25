@@ -12,7 +12,7 @@ const app = express();
 // Security middleware
 app.use(helmet());
 app.use(cors({
-  origin: process.env.FRONTEND_URL || 'http://13.53.134.21',
+  origin: process.env.FRONTEND_URL || 'http://51.20.8.81',
   credentials: true
 }));
 
